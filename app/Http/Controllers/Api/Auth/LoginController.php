@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Validator;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -19,6 +22,25 @@ class LoginController extends Controller
         }
 
         return response()->json(['token' => $token]);
+    }
+
+    public function register(Request $request)
+    {
+        $rules = [
+            'email'    => 'unique:users|required',
+            'password' => 'required',
+        ];
+
+        $input     = $request->only('email','password');
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+
+        $email    = $request->email;
+        $password = $request->password;
+        $user     = User::create(['email' => $email, 'password' => Hash::make($password)]);
     }
 
     public function refresh()
