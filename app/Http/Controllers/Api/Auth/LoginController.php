@@ -41,6 +41,8 @@ class LoginController extends Controller
         $email    = $request->email;
         $password = $request->password;
         $user     = User::create(['email' => $email, 'password' => Hash::make($password)]);
+
+        return $user;
     }
 
     public function refresh()
