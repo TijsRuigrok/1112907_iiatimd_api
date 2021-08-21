@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Prize extends Model
 {
     protected $fillable = [
-        'name', 'points',
+        'guid', 'name', 'points',
     ];
 
     public $timestamps = false;

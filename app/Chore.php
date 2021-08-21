@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chore extends Model
 {
     protected $fillable = [
-        'name', 'points', 'date',
+        'guid', 'name', 'points', 'date',
     ];
 
     public $timestamps = false;

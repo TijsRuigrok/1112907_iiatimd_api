@@ -15,6 +15,7 @@ class CreateChoresTable extends Migration
     {
         Schema::create('chores', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('guid');
             $table->string('name');
             $table->integer('points');
             $table->string('date');

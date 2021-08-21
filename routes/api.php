@@ -29,6 +29,26 @@ Route::get('/refresh', [
     'uses'  =>  'Api\Auth\LoginController@refresh'
 ]);
 
+Route::put('/set-update-timestamp', [
+    'as'    => 'user.set-update-timestamp',
+    'uses'  =>  'Api\UserController@setUpdateTimestamp'
+]);
+
+Route::get('/get-update-timestamp', [
+    'as'    => 'user.get-update-timestamp',
+    'uses'  =>  'Api\UserController@getUpdateTimestamp'
+]);
+
+Route::put('/set-points', [
+    'as'    => 'user.set-points',
+    'uses'  =>  'Api\UserController@setPoints'
+]);
+
+Route::get('/get-points', [
+    'as'    => 'user.get-points',
+    'uses'  =>  'Api\UserController@getPoints'
+]);
+
 Route::get('/chores/self', [
     'as'    =>  'chores.self',
     'uses'  =>  'Api\ChoreController@self'
@@ -44,6 +64,11 @@ Route::delete('/chores/self/delete/{id}', [
     'uses'  =>  'Api\ChoreController@remove'
 ]);
 
+Route::get('/chores/self/complete/{id}', [
+    'as'    => 'chores.complete',
+    'uses'  =>  'Api\ChoreController@complete'
+]);
+
 Route::get('/prizes/self', [
     'as'    => 'prizes.self',
     'uses'  =>  'Api\PrizeController@self'
@@ -54,12 +79,12 @@ Route::post('/prizes/create', [
     'uses'  =>  'Api\PrizeController@store'
 ]);
 
-Route::get('/prizes/self/claimed', [
-    'as'    => 'prizes.claimed',
-    'uses'  =>  'Api\PrizeController@claimed'
-]);
-
 Route::delete('/prizes/self/delete/{id}', [
     'as'    => 'prizes.remove',
     'uses'  =>  'Api\PrizeController@remove'
+]);
+
+Route::get('/prizes/self/claim/{id}', [
+    'as'    => 'prizes.claim',
+    'uses'  =>  'Api\PrizeController@claim'
 ]);

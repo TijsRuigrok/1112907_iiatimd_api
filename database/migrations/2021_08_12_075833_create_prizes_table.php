@@ -15,6 +15,7 @@ class CreatePrizesTable extends Migration
     {
         Schema::create('prizes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('guid');
             $table->string('name');
             $table->integer('points');
             $table->boolean('claimed')->default(0);

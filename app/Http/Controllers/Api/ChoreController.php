@@ -21,7 +21,7 @@ class ChoreController extends Controller
 
     public function store(Request $request)
     {
-        $details = $request->only(['name', 'points', 'date']);
+        $details = $request->only(['guid', 'name', 'points', 'date']);
 
         try {
             $user = auth()->userOrFail();
@@ -42,8 +42,21 @@ class ChoreController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
 
-        $user->chores()->where('id', '=', $id)->delete();
+        $user->chores()->where('guid', '=', $id)->delete();
             
+        return $user->chores;
+    }
+
+    public function complete($id)
+    {
+        try {
+            $user = auth()->userOrFail();
+        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+
+        $chore = $user->chores()->where('guid', '=', $id)->update(['completed' => '1']);
+
         return $user->chores;
     }
 }

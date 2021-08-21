@@ -12,6 +12,7 @@ class PrizeSeeder extends Seeder
     public function run()
     {
         DB::table('prizes')->insert([
+            'guid' => '',
             'name' => 'Trip to disneyland',
             'points' => '200',
             'claimed' => 0,
@@ -19,6 +20,7 @@ class PrizeSeeder extends Seeder
         ]);
 
         DB::table('prizes')->insert([
+            'guid' => '',
             'name' => 'Test',
             'points' => '200',
             'claimed' => 1,
