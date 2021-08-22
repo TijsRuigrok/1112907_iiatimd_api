@@ -3,17 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::post('/login', [
     'as'    =>  'login.login',
     'uses'  =>  'Api\Auth\LoginController@login'
@@ -28,6 +17,9 @@ Route::get('/refresh', [
     'as'    => 'login.refresh',
     'uses'  =>  'Api\Auth\LoginController@refresh'
 ]);
+
+
+// USER ----------------------------------------------------------
 
 Route::put('/set-update-timestamp', [
     'as'    => 'user.set-update-timestamp',
@@ -49,6 +41,9 @@ Route::get('/get-points', [
     'uses'  =>  'Api\UserController@getPoints'
 ]);
 
+
+// CHORES ------------------------------------------------------------
+
 Route::get('/chores/self', [
     'as'    =>  'chores.self',
     'uses'  =>  'Api\ChoreController@self'
@@ -69,6 +64,9 @@ Route::get('/chores/self/complete/{id}', [
     'uses'  =>  'Api\ChoreController@complete'
 ]);
 
+
+// PRIZES ------------------------------------------------------------
+
 Route::get('/prizes/self', [
     'as'    => 'prizes.self',
     'uses'  =>  'Api\PrizeController@self'
@@ -88,3 +86,11 @@ Route::get('/prizes/self/claim/{id}', [
     'as'    => 'prizes.claim',
     'uses'  =>  'Api\PrizeController@claim'
 ]);
+
+
+// FALLBACK
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact s1112907@student.hsleiden.nl'], 404);
+});

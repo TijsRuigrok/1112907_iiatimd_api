@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Controller;
 use Illuminate\Http\Request;
 use App\Chore;
 
@@ -10,11 +10,7 @@ class ChoreController extends Controller
 {
     public function self()
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         return $user->chores;
     }
@@ -23,11 +19,7 @@ class ChoreController extends Controller
     {
         $details = $request->only(['guid', 'name', 'points', 'date']);
 
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $chore = $user->chores()->create($details);
 
@@ -36,11 +28,7 @@ class ChoreController extends Controller
 
     public function remove($id)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $user->chores()->where('guid', '=', $id)->delete();
             
@@ -49,11 +37,7 @@ class ChoreController extends Controller
 
     public function complete($id)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $chore = $user->chores()->where('guid', '=', $id)->update(['completed' => '1']);
 

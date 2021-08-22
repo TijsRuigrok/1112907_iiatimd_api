@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Controller;
 
 class PrizeController extends Controller
 {
     public function self()
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         return $user->prizes;
     }
@@ -22,11 +18,7 @@ class PrizeController extends Controller
     {
         $details = $request->only(['guid', 'name', 'points']);
 
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $prize = $user->prizes()->create($details);
 
@@ -35,11 +27,7 @@ class PrizeController extends Controller
 
     public function remove($id)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $user->prizes()->where('id', '=', $id)->delete();
             
@@ -48,11 +36,7 @@ class PrizeController extends Controller
 
     public function claim($id)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $prize = $user->prizes()->where('guid', '=', $id)->update(['claimed' => '1']);
 

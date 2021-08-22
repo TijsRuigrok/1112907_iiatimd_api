@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Controller;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\User;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {

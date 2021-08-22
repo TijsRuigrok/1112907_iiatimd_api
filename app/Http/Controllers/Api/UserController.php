@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Controller;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function setUpdateTimestamp(Request $request)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $user->update(['updated_at' => $request->updated_at]);
 
@@ -22,22 +18,14 @@ class UserController extends Controller
 
     public function getUpdateTimestamp()
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         return $user->updated_at;
     }
 
     public function setPoints(Request $request)
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         $user->update(['points' => $request->points]);
 
@@ -46,11 +34,7 @@ class UserController extends Controller
 
     public function getPoints()
     {
-        try {
-            $user = auth()->userOrFail();
-        } catch(\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $user = $this->authUser();
 
         return $user->points;
     }
