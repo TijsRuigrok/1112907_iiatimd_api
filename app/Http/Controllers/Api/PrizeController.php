@@ -34,12 +34,12 @@ class PrizeController extends Controller
         return $user->prizes;
     }
 
-    public function claim($id)
+    public function editClaimed(Request $request, $guid)
     {
         $user = $this->authUser();
 
-        $prize = $user->prizes()->where('guid', '=', $id)->update(['claimed' => '1']);
+        $user->prizes()->where('guid', '=', $guid)->update(['claimed' => $request->claimed]);
 
-        return $user->prizes;
+        return $user;
     }
 }

@@ -19,72 +19,61 @@ Route::get('/refresh', [
 ]);
 
 
-// USER ----------------------------------------------------------
+// USERS ------------------------------------------------------------
 
-Route::put('/set-update-timestamp', [
-    'as'    => 'user.set-update-timestamp',
-    'uses'  =>  'Api\UserController@setUpdateTimestamp'
-]);
-
-Route::get('/get-update-timestamp', [
-    'as'    => 'user.get-update-timestamp',
-    'uses'  =>  'Api\UserController@getUpdateTimestamp'
-]);
-
-Route::put('/set-points', [
-    'as'    => 'user.set-points',
-    'uses'  =>  'Api\UserController@setPoints'
-]);
-
-Route::get('/get-points', [
-    'as'    => 'user.get-points',
+Route::get('/users/self/points', [
     'uses'  =>  'Api\UserController@getPoints'
 ]);
+
+Route::put('/users/self/points', [
+    'uses'  =>  'Api\UserController@editPoints'
+]);
+
+Route::get('/users/self/updated-at', [
+    'uses'  =>  'Api\UserController@getUpdatedAt'
+]);
+
+Route::put('/users/self/updated-at', [
+    'uses'  =>  'Api\UserController@editUpdatedAt'
+]);
+
 
 
 // CHORES ------------------------------------------------------------
 
 Route::get('/chores/self', [
-    'as'    =>  'chores.self',
     'uses'  =>  'Api\ChoreController@self'
 ]);
 
-Route::post('/chores/create', [
-    'as'    =>  'chores.store',
+Route::post('/chores', [
     'uses'  =>  'Api\ChoreController@store'
 ]);
 
-Route::delete('/chores/self/delete/{id}', [
-    'as'    => 'chores.remove',
+Route::delete('/chores/{guid}', [
     'uses'  =>  'Api\ChoreController@remove'
 ]);
 
-Route::get('/chores/self/complete/{id}', [
-    'as'    => 'chores.complete',
-    'uses'  =>  'Api\ChoreController@complete'
+Route::put('/chores/{guid}/completed', [
+    'uses'  =>  'Api\ChoreController@editCompleted'
 ]);
 
 
 // PRIZES ------------------------------------------------------------
 
 Route::get('/prizes/self', [
-    'as'    => 'prizes.self',
     'uses'  =>  'Api\PrizeController@self'
 ]);
 
-Route::post('/prizes/create', [
-    'as'    => 'prizes.store',
+Route::post('/prizes', [
     'uses'  =>  'Api\PrizeController@store'
 ]);
 
-Route::delete('/prizes/self/delete/{id}', [
-    'as'    => 'prizes.remove',
+Route::delete('/prizes/{guid}', [
     'uses'  =>  'Api\PrizeController@remove'
 ]);
 
-Route::get('/prizes/self/claim/{id}', [
-    'as'    => 'prizes.claim',
-    'uses'  =>  'Api\PrizeController@claim'
+Route::put('/prizes/{guid}/claimed', [
+    'uses'  =>  'Api\PrizeController@editClaimed'
 ]);
 
 

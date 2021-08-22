@@ -35,12 +35,12 @@ class ChoreController extends Controller
         return $user->chores;
     }
 
-    public function complete($id)
+    public function editCompleted(Request $request, $guid)
     {
         $user = $this->authUser();
 
-        $chore = $user->chores()->where('guid', '=', $id)->update(['completed' => '1']);
+        $user->chores()->where('guid', '=', $guid)->update(['completed' => $request->completed]);
 
-        return $user->chores;
+        return $user;
     }
 }

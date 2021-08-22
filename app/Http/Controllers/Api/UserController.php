@@ -7,23 +7,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function setUpdateTimestamp(Request $request)
+    public function getPoints()
     {
         $user = $this->authUser();
 
-        $user->update(['updated_at' => $request->updated_at]);
-
-        return $user;
+        return $user->points;
     }
 
-    public function getUpdateTimestamp()
-    {
-        $user = $this->authUser();
-
-        return $user->updated_at;
-    }
-
-    public function setPoints(Request $request)
+    public function editPoints(Request $request)
     {
         $user = $this->authUser();
 
@@ -32,10 +23,19 @@ class UserController extends Controller
         return $user;
     }
 
-    public function getPoints()
+    public function getUpdatedAt()
     {
         $user = $this->authUser();
 
-        return $user->points;
+        return $user->updated_at;
+    }
+
+    public function editUpdatedAt(Request $request)
+    {
+        $user = $this->authUser();
+
+        $user->update(['updated_at' => $request->updated_at]);
+
+        return $user;
     }
 }
